@@ -1,0 +1,152 @@
+/* ===== Posts ("routes") page =====
+   Suggested structure:
+   <div className="posts-toolbar">  "my routes" / "all routes" buttons, search, "new route"
+   <div className="posts-layout">
+     <ul className="post-list">
+       <li className="post-row card selected"> <span className="post-row__title">4 · ...</span> <button>בחירה</button>
+     <section className="post-details card">
+       <h2/> <p className="post-details__body"/> <div className="post-details__actions"/>
+       <ul className="comment-list"><li className="comment"><strong>name:</strong> ...</li></ul>
+       <form className="comment-form"><input className="input"/><button/></form>
+*/
+
+.posts-toolbar {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 18px;
+  flex-wrap: wrap;
+}
+
+.posts-toolbar .input {
+  flex: 1;
+  min-width: 200px;
+}
+
+/* the "search by" select – only as wide as its text */
+.posts-toolbar .posts-search-by {
+  flex: 0 0 auto;
+  min-width: 0;
+}
+
+/* active filter button ("my routes" / "all routes") */
+.btn-toggle.active {
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+  color: var(--color-text);
+}
+
+.posts-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* in RTL: list on the right, details on the left */
+  gap: 20px;
+  align-items: start;
+}
+
+.post-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.post-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 24px;
+}
+
+.post-row.selected {
+  border: 2px solid var(--color-accent);
+}
+
+.post-row__title {
+  flex: 1;
+}
+
+.post-details {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.post-details h2 {
+  font-size: 1.8rem;
+}
+
+.post-details__body {
+  margin: 0;
+  color: var(--color-muted);
+}
+
+/* add / edit form – a textarea for the description */
+.post-form textarea {
+  resize: vertical;
+  font: inherit;
+}
+
+.post-details__actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.comment-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  color: var(--color-muted);
+}
+
+.comment strong {
+  color: var(--color-text);
+}
+
+/* "update · delete" next to my own comment – look like links, not big buttons */
+.link-btn {
+  border: none;
+  background: none;
+  padding: 0;
+  font: inherit;
+  color: var(--color-text);
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.link-btn--danger {
+  color: var(--color-danger);
+}
+
+/* editing a comment – input + save / cancel in one row */
+.comment-edit {
+  display: inline-flex;
+  gap: 8px;
+  align-items: center;
+  width: 100%;
+  margin-top: 6px;
+}
+
+.comment-edit .input {
+  flex: 1;
+}
+
+.comment-form {
+  display: flex;
+  gap: 12px;
+}
+
+.comment-form .input {
+  flex: 1;
+}
+
+@media (max-width: 900px) {
+  .posts-layout {
+    grid-template-columns: 1fr;
+  }
+}

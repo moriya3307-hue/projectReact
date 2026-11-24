@@ -1,0 +1,57 @@
+/* ===== Todos page ===== */
+
+.todos-toolbar {
+  display: grid;
+  grid-template-columns: 1fr auto; /* search (later) | sort */
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.todos-search {
+  display: flex;
+  gap: 12px;
+}
+
+.todos-search .input {
+  flex: 1;
+}
+
+.todo-sort {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 14px;
+  border: 1px solid var(--color-input-border);
+  border-radius: var(--radius);
+  background: #fff;
+}
+
+.todo-sort select {
+  border: none;
+  background: transparent;
+  padding: 12px 0;
+  color: var(--color-text);
+  cursor: pointer;
+}
+
+.todos-add {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.todos-add .input {
+  flex: 1;
+}
+
+.todo-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+@media (max-width: 700px) {
+  .todos-toolbar {
+    grid-template-columns: 1fr;
+  }
+}

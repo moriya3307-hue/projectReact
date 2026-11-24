@@ -1,0 +1,138 @@
+/* ===== Login / Register / Complete-details pages =====
+   Suggested structure:
+   <div className="auth-page">
+     <aside className="auth-art auth-art--jerusalem">   (or --galilee / --ramon)
+       <p className="auth-art__caption">ירושלים · חומות העיר העתיקה</p>
+     </aside>
+     <main className="auth-side">
+       <form className="auth-form">
+         <h1>...</h1>
+         <label className="auth-field">שם משתמש <input className="input" /></label>
+         <p className="error-text">...</p>
+         <button className="btn btn-primary">כניסה</button>
+         <p className="auth-link">מטייל חדש? <Link to="/register">להרשמה</Link></p>
+       </form>
+     </main>
+   </div>
+*/
+
+.auth-page {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-areas: "art form"; /* in RTL: art on the right, form on the left */
+  min-height: 100vh;
+}
+
+.auth-side {
+  grid-area: form;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 24px;
+}
+
+.auth-form {
+  width: min(100%, 520px);
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.auth-form h1 {
+  font-size: 2.4rem;
+}
+
+.auth-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-weight: 700;
+}
+
+.auth-form .btn {
+  width: 100%;
+  padding: 14px;
+}
+
+.auth-link {
+  margin: 0;
+  color: var(--color-muted);
+}
+
+.auth-link a {
+  color: var(--color-muted);
+}
+
+/* --- landscape illustration --- */
+.auth-art {
+  grid-area: art;
+  position: relative;
+  overflow: hidden;
+}
+
+/* sun */
+.auth-art::before {
+  content: "";
+  position: absolute;
+  top: 26%;
+  left: -60px;
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  background: #fdf0d0;
+}
+
+.auth-art__caption {
+  position: absolute;
+  bottom: 32px;
+  right: 36px;
+  left: 36px;
+  margin: 0;
+  padding: 20px 24px;
+  border-radius: 12px;
+  background: rgba(23, 51, 59, 0.92);
+  color: #fff;
+  font-size: 1.3rem;
+  font-weight: 700;
+}
+
+.auth-art--jerusalem {
+  background: linear-gradient(
+    to bottom,
+    #f7d58d 0 45%,
+    #f2b460 45% 58%,
+    #c9976a 58% 65%,
+    #d9b888 65% 100%
+  );
+}
+
+.auth-art--galilee {
+  background: linear-gradient(
+    to bottom,
+    #fef0cf 0 40%,
+    #bfe2f1 40% 48%,
+    #82ae69 48% 60%,
+    #4f8b4c 60% 78%,
+    #2a8fb4 78% 100%
+  );
+}
+
+.auth-art--ramon {
+  background: linear-gradient(
+    to bottom,
+    #9fd3e9 0 42%,
+    #e79e66 42% 60%,
+    #c7643a 60% 80%,
+    #8f3d25 80% 100%
+  );
+}
+
+@media (max-width: 800px) {
+  .auth-page {
+    grid-template-columns: 1fr;
+    grid-template-areas: "form";
+  }
+  .auth-art {
+    display: none;
+  }
+}

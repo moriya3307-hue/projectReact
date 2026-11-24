@@ -1,0 +1,304 @@
+/* ===== עמוד הבית של המשתמש ===== */
+
+.home {
+  display: flex;
+  flex-direction: column;
+  gap: 36px;
+}
+
+/* ---------- 1. תמונת הנוף ---------- */
+
+.home-hero {
+  position: relative;
+  height: 420px;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: 0 18px 40px -24px rgba(23, 51, 59, 0.55);
+}
+
+.home-hero__art {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* הטקסט – בצד ימין, על השמיים */
+.home-hero__text {
+  position: absolute;
+  top: 40px;
+  right: 48px;
+  max-width: 520px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 14px;
+  animation: home-fade-up 0.8s ease-out 0.35s both;
+}
+
+.home-hero__eyebrow {
+  margin: 0;
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: #7a4b22;
+}
+
+.home-hero__title {
+  font-size: 2.7rem;
+  line-height: 1.2;
+  color: var(--color-text);
+}
+
+.home-hero__cta {
+  margin-top: 6px;
+  text-decoration: none;
+  box-shadow: 0 8px 20px -10px rgba(122, 75, 34, 0.8);
+}
+
+/* --- האנימציות של הנוף --- */
+
+/* כל שכבת הרים עולה מלמטה, אחת אחרי השנייה */
+.home-hero__layer {
+  animation: home-rise 1s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+.home-hero__layer--far  { animation-delay: 0s; }
+.home-hero__layer--mid  { animation-delay: 0.12s; }
+.home-hero__layer--near { animation-delay: 0.24s; }
+
+/* השמש זורחת */
+.home-hero__sun {
+  animation: home-sunrise 1.6s ease-out both;
+}
+
+/* הציפורים מרחפות */
+.home-hero__birds {
+  animation: home-fade-up 1s ease-out 0.6s both, home-float 6s ease-in-out 1.6s infinite;
+}
+
+/* השביל – הקווקוו זז כל הזמן, כמו צעדים */
+.home-hero__trail {
+  stroke-dasharray: 14 14;
+  animation: home-fade-in 0.6s ease-out 0.7s both, home-walk 8s linear infinite;
+}
+
+/* ---------- 2. כרטיסי קיצור ---------- */
+
+.home-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.home-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 24px 26px;
+  color: var(--color-text);
+  text-decoration: none;
+  transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+  animation: home-fade-up 0.6s ease-out var(--delay, 0s) both;
+}
+
+.home-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--color-accent);
+  box-shadow: 0 14px 30px -18px rgba(23, 51, 59, 0.5);
+}
+
+.home-card__icon {
+  font-size: 2rem;
+  margin-bottom: 6px;
+}
+
+.home-card__title {
+  font-weight: 700;
+  color: var(--color-primary);
+}
+
+.home-card__value {
+  font-size: 2.6rem;
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+.home-card__caption {
+  color: var(--color-muted);
+  font-size: 0.95rem;
+}
+
+/* חץ בפינה – זז שמאלה במעבר עכבר (RTL: שמאלה = קדימה) */
+.home-card__arrow {
+  position: absolute;
+  top: 24px;
+  left: 26px;
+  font-size: 1.4rem;
+  color: var(--color-accent-dark);
+  transition: transform 0.2s;
+}
+.home-card:hover .home-card__arrow {
+  transform: translateX(-6px);
+}
+
+/* ---------- 3. השראה למסלול הבא ---------- */
+
+.home-section-title {
+  font-size: 1.5rem;
+  margin-bottom: 16px;
+}
+
+.home-trails__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.home-trail {
+  overflow: hidden;
+  animation: home-fade-up 0.6s ease-out var(--delay, 0s) both;
+}
+
+.home-trail__art {
+  position: relative;
+  height: 130px;
+}
+
+.home-trail__level {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  padding: 4px 12px;
+  border-radius: 999px;
+  background: rgba(23, 51, 59, 0.85);
+  color: #fff;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+/* איורי נוף בפסים – באותו סגנון של עמודי הכניסה */
+.home-trail__art--galilee {
+  background: linear-gradient(
+    to bottom,
+    #fef0cf 0 38%,
+    #82ae69 38% 62%,
+    #4f8b4c 62% 82%,
+    #2a8fb4 82% 100%
+  );
+}
+
+.home-trail__art--desert {
+  background: linear-gradient(
+    to bottom,
+    #f7d58d 0 40%,
+    #e6b37a 40% 62%,
+    #b98457 62% 80%,
+    #6fb3c4 80% 100%
+  );
+}
+
+.home-trail__art--ramon {
+  background: linear-gradient(
+    to bottom,
+    #9fd3e9 0 42%,
+    #e79e66 42% 62%,
+    #c7643a 62% 82%,
+    #8f3d25 82% 100%
+  );
+}
+
+.home-trail__body {
+  padding: 16px 20px 20px;
+}
+
+.home-trail__body h4 {
+  margin: 0;
+  font-size: 1.2rem;
+}
+
+.home-trail__region {
+  margin: 2px 0 8px;
+  color: var(--color-primary);
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+
+.home-trail__body .muted {
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* ---------- keyframes ---------- */
+
+@keyframes home-rise {
+  from { transform: translateY(80px); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+
+@keyframes home-sunrise {
+  from { transform: translateY(120px); opacity: 0; }
+  to   { transform: translateY(0);     opacity: 1; }
+}
+
+@keyframes home-fade-up {
+  from { transform: translateY(16px); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+
+@keyframes home-fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes home-float {
+  0%, 100% { transform: translate(0, 0); }
+  50%      { transform: translate(-14px, -6px); }
+}
+
+@keyframes home-walk {
+  to { stroke-dashoffset: -280; }
+}
+
+/* מי שביקש במערכת פחות תנועה – בלי אנימציות */
+@media (prefers-reduced-motion: reduce) {
+  .home *,
+  .home *::before,
+  .home *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+/* ---------- מסכים קטנים ---------- */
+
+@media (max-width: 900px) {
+  .home-cards,
+  .home-trails__list {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 700px) {
+  .home {
+    gap: 24px;
+  }
+  .home-hero {
+    height: 340px;
+  }
+  .home-hero__text {
+    top: 24px;
+    right: 20px;
+    left: 20px;
+  }
+  .home-hero__title {
+    font-size: 1.8rem;
+  }
+  .home-card__value {
+    font-size: 2.1rem;
+  }
+}

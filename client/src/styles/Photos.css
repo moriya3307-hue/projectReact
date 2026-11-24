@@ -1,0 +1,64 @@
+/* ===== Album photo gallery =====
+   Suggested structure:
+   <div className="photos-header"> <h1 className="page-title"/> <input className="input"/> <button>add photo</button>
+   <ul className="photos-grid">
+     <li className="photo-card card"><img/> <div className="photo-card__footer"><span/> update / delete
+   <div className="photos-more"><button>show more</button><span className="muted">4 photos per click</span>
+*/
+
+.photos-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 18px;
+  flex-wrap: wrap;
+}
+
+.photos-header .page-title {
+  margin: 0 0 0 auto; /* title on the right, fields pushed left */
+}
+
+.photos-header .input {
+  width: min(100%, 580px);
+}
+
+.photos-grid {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 18px;
+}
+
+.photo-card {
+  padding: 16px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.photo-card img {
+  width: 100%;
+  aspect-ratio: 2 / 1;
+  object-fit: cover;
+  border-radius: var(--radius);
+}
+
+.photo-card__footer {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.photo-card__footer span {
+  flex: 1;
+}
+
+.photos-more {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  margin-top: 18px;
+}
