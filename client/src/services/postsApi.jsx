@@ -1,32 +1,21 @@
-import { request } from "./apiClient";
+import { createResourceApi } from "./apiClient";
 
 // פניות לשרת בנושא posts ("מסלולים")
+const postsApi = createResourceApi("posts");
 
 // כל הפוסטים של משתמש אחד – לכפתור "המסלולים שלי"
-export function getUserPosts(userId) {
-  return request(`/posts?userId=${userId}`);
-}
+export const getUserPosts = (userId) => postsApi.getList({ userId });
 
-// כל הפוסטים של כל המשתמשים – לכפתור "כל המסלולים"
-export function getAllPosts() {
-  return request("/posts");
-}
+// כל הפוסטים של כל המשתמשים – לכפתור "כל המסלולים" (בלי סינון)
+export const getAllPosts = () => postsApi.getList();
 
 // יצירת פוסט חדש
-export function createPost(userId, title, body) {
-  return request("/posts", {
-    method: "POST",
-    body: { userId, title, body },
-  });
-}
+export const createPost = (userId, title, body) =>
+  postsApi.create({ userId, title, body });
 
 // עדכון חלקי של פוסט (כותרת / תוכן)
-export function patchPost(id, changes) {
-  return request(`/posts/${id}`, { method: "PATCH", body: changes });
-}
+export const patchPost = postsApi.patch;
 
 // מחיקת פוסט
 // json-server מוחק אוטומטית גם את כל התגובות שה-postId שלהן מצביע על הפוסט
-export function removePost(id) {
-  return request(`/posts/${id}`, { method: "DELETE" });
-}
+export const removePost = postsApi.remove;

@@ -1,27 +1,18 @@
-import { request } from "./apiClient";
+import { createResourceApi } from "./apiClient";
 
 // פניות לשרת בנושא albums
+const albumsApi = createResourceApi("albums");
 
 // כל האלבומים של משתמש
-export function getAlbums(userId) {
-  return request(`/albums?userId=${userId}`);
-}
+export const getAlbums = (userId) => albumsApi.getList({ userId });
 
 // אלבום אחד לפי מספר – לכותרת בעמוד התמונות ולבדיקה שהאלבום שייך למשתמש
-export function getAlbum(id) {
-  return request(`/albums/${id}`);
-}
+export const getAlbum = albumsApi.getById;
 
 // יצירת אלבום חדש
-export function createAlbum(userId, title) {
-  return request("/albums", {
-    method: "POST",
-    body: { userId, title },
-  });
-}
+export const createAlbum = (userId, title) =>
+  albumsApi.create({ userId, title });
 
 // מחיקת אלבום
 // json-server מוחק אוטומטית גם את כל התמונות שה-albumId שלהן מצביע על האלבום
-export function removeAlbum(id) {
-  return request(`/albums/${id}`, { method: "DELETE" });
-}
+export const removeAlbum = albumsApi.remove;

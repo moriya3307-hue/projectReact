@@ -1,26 +1,18 @@
-import { request } from "./apiClient";
+import { createResourceApi } from "./apiClient";
 
 // פניות לשרת בנושא todos
+// הפעולות הבסיסיות מגיעות מהפונקציה הגנרית, וכאן נשאר רק מה שייחודי למשימות
+const todosApi = createResourceApi("todos");
 
 // כל המשימות של משתמש
-export function getTodos(userId) {
-  return request(`/todos?userId=${userId}`);
-}
+export const getTodos = (userId) => todosApi.getList({ userId });
 
-// יצירת משימה חדשה
-export function createTodo(userId, title) {
-  return request("/todos", {
-    method: "POST",
-    body: { userId, title, completed: false },
-  });
-}
+// יצירת משימה חדשה – משימה חדשה תמיד מתחילה כלא בוצעה
+export const createTodo = (userId, title) =>
+  todosApi.create({ userId, title, completed: false });
 
 // עדכון חלקי של משימה (כותרת / מצב ביצוע)
-export function patchTodo(id, changes) {
-  return request(`/todos/${id}`, { method: "PATCH", body: changes });
-}
+export const patchTodo = todosApi.patch;
 
 // מחיקת משימה
-export function removeTodo(id) {
-  return request(`/todos/${id}`, { method: "DELETE" });
-}
+export const removeTodo = todosApi.remove;

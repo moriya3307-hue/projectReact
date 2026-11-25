@@ -1,14 +1,12 @@
-import { request } from "./apiClient";
+import { createResourceApi } from "./apiClient";
 
 // פניות לשרת בנושא users
+const usersApi = createResourceApi("users");
 
 // חיפוש משתמש לפי שם משתמש.
 // השרת מחזיר תמיד מערך: [] אם לא נמצא, או [user] אם נמצא.
-export function getUsersByUsername(username) {
-  return request(`/users?username=${encodeURIComponent(username)}`);
-}
+// (הקידוד של שם המשתמש בכתובת נעשה אוטומטית ב-getList)
+export const getUsersByUsername = (username) => usersApi.getList({ username });
 
 // יצירת משתמש חדש. השרת מוסיף לו id ומחזיר את המשתמש השמור
-export function createUser(user) {
-  return request("/users", { method: "POST", body: user });
-}
+export const createUser = usersApi.create;
