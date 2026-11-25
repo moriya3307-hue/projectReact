@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { getUsersByUsername } from "../services/usersApi";
-import { USER_KEY } from "./Layout";
-import "../styles/Auth.css";
+import { getUsersByUsername } from "../../services/usersApi";
+import { USER_KEY } from "../userLayout/Layout";
+import "../../styles/Auth.css";
 
 // ===== עמוד הכניסה =====
 // שלב 1: הטופס והשדות הנשלטים (controlled).

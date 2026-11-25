@@ -1,13 +1,13 @@
 import { Navigate, Route, Routes } from "react-router-dom";
-import Layout from "./components/Layout";
-import Home from "./components/Home";
+import Layout from "./components/userLayout/Layout";
+import Home from "./components/userLayout/Home";
 import Todos from "./components/todos/ToDos";
 import Posts from "./components/posts/Posts";
 import Albums from "./components/albums/Albums";
 import Photos from "./components/photos/Photos";
-import Login from "./components/Login";
-import Register from "./components/Register";
-import CompleteDetails from "./components/CompleteDetails";
+import Login from "./components/auth/Login";
+import Register from "./components/auth/Register";
+import CompleteDetails from "./components/auth/CompleteDetails";
 
 // עמוד זמני לחלקים שעוד לא נבנו – יוחלף ברכיב האמיתי
 function ComingSoon({ title }) {

@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { Link, useOutletContext } from "react-router-dom";
-import { getTodos } from "../services/todosApi";
-import { getUserPosts } from "../services/postsApi";
-import { getAlbums } from "../services/albumsApi";
-import "../styles/Home.css";
+import { getTodos } from "../../services/todosApi";
+import { getUserPosts } from "../../services/postsApi";
+import { getAlbums } from "../../services/albumsApi";
+import "../../styles/Home.css";
 
 // ===== עמוד הבית של המשתמש =====
 // 1. תמונת נוף מונפשת (SVG) עם ברכה לפי שעה ביום

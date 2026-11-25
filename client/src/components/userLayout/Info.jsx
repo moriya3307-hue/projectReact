@@ -1,4 +1,4 @@
-import "../styles/Info.css";
+import "../../styles/Info.css";
 
 export default function Info({ user, onClose }) {
   return (

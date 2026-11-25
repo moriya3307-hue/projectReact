@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { getUsersByUsername } from "../services/usersApi";
-import "../styles/Auth.css";
+import { getUsersByUsername } from "../../services/usersApi";
+import "../../styles/Auth.css";
 
 // ===== עמוד ההרשמה =====
 // שלב 1: הטופס עם 3 שדות נשלטים + בדיקות בצד הלקוח (שדות ריקים, התאמת סיסמאות).

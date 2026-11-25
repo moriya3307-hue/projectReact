@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { Navigate, useLocation, useNavigate } from "react-router-dom";
-import { createUser } from "../services/usersApi";
-import { USER_KEY } from "./Layout";
-import "../styles/Auth.css";
+import { createUser } from "../../services/usersApi";
+import { USER_KEY } from "../userLayout/Layout";
+import "../../styles/Auth.css";
 
 // ===== מסך השלמת הפרטים (אחרי עמוד ההרשמה) =====
 // שלב 1: קבלת שם המשתמש והסיסמה שנשלחו מעמוד ההרשמה.

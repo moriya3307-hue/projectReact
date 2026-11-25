@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { NavLink, Navigate, Outlet, useNavigate, useParams } from "react-router-dom";
 import Info from "./Info";
-import "../styles/Layout.css";
+import "../../styles/Layout.css";
 
 // המפתח שתחתיו נשמר המשתמש המחובר ב-LocalStorage (ה-Login צריך לשמור באותו מפתח)
 export const USER_KEY = "currentUser";
