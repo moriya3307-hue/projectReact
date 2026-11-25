@@ -2,11 +2,9 @@ import { useState } from "react";
 import PostForm from "./PostForm";
 import Comments from "./Comments";
 
-// פרטי המסלול שנבחר – כותרת + תוכן + תגובות
-// isMine – האם המסלול שייך למשתמש המחובר (רק אז מותר לעדכן / למחוק)
 export default function PostDetails({ post, isMine, onEdit, onDelete }) {
   const [isEditing, setIsEditing] = useState(false);
-  const [showComments, setShowComments] = useState(false); // התגובות נטענות רק בלחיצה
+  const [showComments, setShowComments] = useState(false);
 
   if (isEditing) {
     return (
@@ -14,7 +12,6 @@ export default function PostDetails({ post, isMine, onEdit, onDelete }) {
         initialPost={post}
         submitLabel="שמירה"
         onSubmit={(title, body) => {
-          // שולחים לשרת רק את מה שהשתנה
           const changes = {};
           if (title !== post.title) changes.title = title;
           if (body !== post.body) changes.body = body;
@@ -32,14 +29,12 @@ export default function PostDetails({ post, isMine, onEdit, onDelete }) {
       <p className="post-details__body">{post.body}</p>
 
       <div className="post-details__actions">
-        {/* עדכון / מחיקה – רק למסלול של המשתמש המחובר */}
         {isMine && (
           <>
             <button className="btn btn-outline" onClick={() => setIsEditing(true)}>עדכון</button>
             <button className="btn btn-danger" onClick={onDelete}>מחיקה</button>
           </>
         )}
-        {/* הצגת תגובות – לכל מסלול */}
         <button className="btn btn-outline" onClick={() => setShowComments(!showComments)}>
           {showComments ? "הסתר תגובות" : "הצג תגובות"}
         </button>

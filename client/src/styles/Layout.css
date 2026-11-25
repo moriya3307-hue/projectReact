@@ -1,5 +1,3 @@
-/* ===== Top header shown on every app page ===== */
-
 .app-header {
   display: flex;
   justify-content: space-between;

@@ -9,12 +9,10 @@ import Login from "./components/auth/Login";
 import Register from "./components/auth/Register";
 import CompleteDetails from "./components/auth/CompleteDetails";
 
-// עמוד זמני לחלקים שעוד לא נבנו – יוחלף ברכיב האמיתי
-function ComingSoon({ title }) {
+function NotFound() {
   return (
     <div className="page">
-      <h1 className="page-title">{title}</h1>
-      <p className="muted">העמוד בבנייה</p>
+      <h1 className="page-title">העמוד לא נמצא</h1>
     </div>
   );
 }
@@ -22,25 +20,21 @@ function ComingSoon({ title }) {
 export default function App() {
   return (
     <Routes>
-      {/* הכתובת הראשית מעבירה לעמוד הכניסה */}
       <Route path="/" element={<Navigate to="/login" replace />} />
 
-      {/* עמודי כניסה והרשמה – מחוץ ל-Layout (בלי כותרת עליונה) */}
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
       <Route path="/register/details" element={<CompleteDetails />} />
 
-      {/* עמודי היישום – בתוך Layout, הכתובת לפי שם המשתמש */}
       <Route path="/users/:username" element={<Layout />}>
         <Route index element={<Home />} />
         <Route path="todos" element={<Todos />} />
-        {/* :postId? – חלק אופציונלי: posts = בלי בחירה, posts/7 = המסלול 7 נבחר */}
         <Route path="posts/:postId?" element={<Posts />} />
         <Route path="albums" element={<Albums />} />
         <Route path="albums/:albumId/photos" element={<Photos />} />
       </Route>
 
-      <Route path="*" element={<ComingSoon title="העמוד לא נמצא" />} />
+      <Route path="*" element={<NotFound />} />
     </Routes>
   );
 }

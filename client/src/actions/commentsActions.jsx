@@ -1,8 +1,5 @@
 import { getComments, createComment, patchComment, removeComment } from "../services/commentsApi";
 
-/* פונקציות הפעולה של התגובות – קוראות לשרת דרך services ומעדכנות את ה-state עם dispatch */
-
-// טעינת כל התגובות של פוסט אחד
 export async function loadComments(dispatch, postId) {
   dispatch({ type: "LOAD_START" });
   try {
@@ -13,7 +10,6 @@ export async function loadComments(dispatch, postId) {
   }
 }
 
-// הוספת תגובה – user הוא המשתמש המחובר (נשמרים userId + name לזיהוי הכותב)
 export async function addComment(dispatch, postId, user, body) {
   try {
     const newComment = await createComment(postId, user, body);
@@ -23,7 +19,6 @@ export async function addComment(dispatch, postId, user, body) {
   }
 }
 
-// עדכון תוכן של תגובה
 export async function updateComment(dispatch, id, body) {
   try {
     const updated = await patchComment(id, { body });
@@ -33,7 +28,6 @@ export async function updateComment(dispatch, id, body) {
   }
 }
 
-// מחיקת תגובה
 export async function deleteComment(dispatch, id) {
   try {
     await removeComment(id);

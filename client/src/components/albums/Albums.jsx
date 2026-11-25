@@ -6,21 +6,18 @@ import AlbumItem from "./AlbumItem";
 import useSearch from "../../hooks/useSearch";
 import "../../styles/Albums.css";
 
-// אפשרויות ה"חיפוש לפי"
 const SEARCH_OPTIONS = [
   { value: "title", label: "כותרת" },
   { value: "id", label: "מספר" },
 ];
 
 export default function Albums() {
-  // המשתמש המחובר מגיע מ-Layout דרך <Outlet context={{ user }} />
   const { user } = useOutletContext();
   const userId = user.id;
 
   const [state, dispatch] = useReducer(albumsReducer, initialAlbumsState);
   const [newTitle, setNewTitle] = useState("");
 
-  // חיפוש – חייב להיות לפני ה-return המוקדם של "טוען..." (חוקי ה-Hooks)
   const { query, setQuery, searchBy, setSearchBy, filtered } = useSearch(
     state.albums,
     SEARCH_OPTIONS.map((opt) => opt.value)
@@ -43,7 +40,6 @@ export default function Albums() {
     setNewTitle("");
   };
 
-  // מחיקת אלבום מוחקת גם את כל התמונות שלו – לכן מבקשים אישור
   const handleDelete = (album) => {
     if (window.confirm(`למחוק את האלבום "${album.title}" וכל התמונות שבו?`)) {
       deleteAlbum(dispatch, album.id);

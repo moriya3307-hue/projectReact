@@ -1,8 +1,5 @@
 import { getAlbums, createAlbum, removeAlbum } from "../services/albumsApi";
 
-/* פונקציות הפעולה של האלבומים – קוראות לשרת דרך services ומעדכנות את ה-state עם dispatch */
-
-// טעינת כל האלבומים של המשתמש
 export async function loadAlbums(dispatch, userId) {
   dispatch({ type: "LOAD_START" });
   try {
@@ -13,7 +10,6 @@ export async function loadAlbums(dispatch, userId) {
   }
 }
 
-// יצירת אלבום
 export async function addAlbum(dispatch, userId, title) {
   try {
     const newAlbum = await createAlbum(userId, title);
@@ -23,7 +19,6 @@ export async function addAlbum(dispatch, userId, title) {
   }
 }
 
-// מחיקת אלבום (השרת מוחק איתו גם את התמונות שלו)
 export async function deleteAlbum(dispatch, id) {
   try {
     await removeAlbum(id);

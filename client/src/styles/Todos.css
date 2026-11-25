@@ -1,8 +1,6 @@
-/* ===== Todos page ===== */
-
 .todos-toolbar {
   display: grid;
-  grid-template-columns: 1fr auto; /* search (later) | sort */
+  grid-template-columns: 1fr auto;
   gap: 12px;
   margin-bottom: 16px;
 }

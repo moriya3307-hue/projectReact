@@ -8,7 +8,6 @@ import useSearch from "../../hooks/useSearch";
 import useSort from "../../hooks/useSort";
 import "../../styles/Todos.css";
 
-// אפשרויות ה"חיפוש לפי"
 const SEARCH_OPTIONS = [
   { value: "title", label: "כותרת" },
   { value: "id", label: "מספר" },
@@ -16,24 +15,19 @@ const SEARCH_OPTIONS = [
 ];
 
 export default function Todos() {
-  // המשתמש המחובר מגיע מ-Layout דרך <Outlet context={{ user }} />
   const { user } = useOutletContext();
   const userId = user.id;
 
   const [state, dispatch] = useReducer(todosReducer, initialTodosState);
   const [newTitle, setNewTitle] = useState("");
 
-  // חיפוש – חייב להיות לפני ה-return המוקדם של "טוען..." (חוקי ה-Hooks)
   const { query, setQuery, searchBy, setSearchBy, filtered } = useSearch(
     state.todos,
     SEARCH_OPTIONS.map((opt) => opt.value)
   );
 
-  // מיון – קודם מסננים (filtered) ואז ממיינים את התוצאה
-  // גם הוא חייב להיות לפני ה-return המוקדם של "טוען..."
   const { sortBy, setSortBy, sorted: sortedTodos } = useSort(filtered, "id");
 
-  // החלפת שדה החיפוש מאפסת את הטקסט (כי "true" לא מתאים לחיפוש לפי כותרת)
   const handleSearchByChange = (e) => {
     setSearchBy(e.target.value);
     setQuery("");
@@ -61,7 +55,6 @@ export default function Todos() {
 
       <div className="todos-toolbar">
         <div className="todos-search">
-          {/* בחיפוש לפי ביצוע – בחירה מתוך רשימה; אחרת – שדה טקסט */}
           {searchBy === "completed" ? (
             <select className="input" value={query} onChange={(e) => setQuery(e.target.value)}>
               <option value="">הכל</option>

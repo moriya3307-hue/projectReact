@@ -1,15 +1,3 @@
-/* ===== Posts ("routes") page =====
-   Suggested structure:
-   <div className="posts-toolbar">  "my routes" / "all routes" buttons, search, "new route"
-   <div className="posts-layout">
-     <ul className="post-list">
-       <li className="post-row card selected"> <span className="post-row__title">4 · ...</span> <button>בחירה</button>
-     <section className="post-details card">
-       <h2/> <p className="post-details__body"/> <div className="post-details__actions"/>
-       <ul className="comment-list"><li className="comment"><strong>name:</strong> ...</li></ul>
-       <form className="comment-form"><input className="input"/><button/></form>
-*/
-
 .posts-toolbar {
   display: flex;
   gap: 12px;
@@ -22,13 +10,11 @@
   min-width: 200px;
 }
 
-/* the "search by" select – only as wide as its text */
 .posts-toolbar .posts-search-by {
   flex: 0 0 auto;
   min-width: 0;
 }
 
-/* active filter button ("my routes" / "all routes") */
 .btn-toggle.active {
   background: var(--color-accent);
   border-color: var(--color-accent);
@@ -37,7 +23,7 @@
 
 .posts-layout {
   display: grid;
-  grid-template-columns: 1fr 1fr; /* in RTL: list on the right, details on the left */
+  grid-template-columns: 1fr 1fr;
   gap: 20px;
   align-items: start;
 }
@@ -82,7 +68,6 @@
   color: var(--color-muted);
 }
 
-/* add / edit form – a textarea for the description */
 .post-form textarea {
   resize: vertical;
   font: inherit;
@@ -108,7 +93,6 @@
   color: var(--color-text);
 }
 
-/* "update · delete" next to my own comment – look like links, not big buttons */
 .link-btn {
   border: none;
   background: none;
@@ -123,7 +107,6 @@
   color: var(--color-danger);
 }
 
-/* editing a comment – input + save / cancel in one row */
 .comment-edit {
   display: inline-flex;
   gap: 8px;

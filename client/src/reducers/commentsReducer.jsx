@@ -1,5 +1,3 @@
-/* ה-reducer של התגובות – רק מחשב state חדש לפי action. הפעולות מול השרת נמצאות ב-actions/commentsActions.jsx */
-
 export const initialCommentsState = {
   comments: [],
   loading: false,

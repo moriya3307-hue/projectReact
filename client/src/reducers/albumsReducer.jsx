@@ -1,5 +1,3 @@
-/* ה-reducer של האלבומים – רק מחשב state חדש לפי action. הפעולות מול השרת נמצאות ב-actions/albumsActions.jsx */
-
 export const initialAlbumsState = {
   albums: [],
   loading: false,

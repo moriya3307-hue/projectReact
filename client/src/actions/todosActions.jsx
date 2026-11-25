@@ -1,8 +1,5 @@
 import { getTodos, createTodo, patchTodo, removeTodo } from "../services/todosApi";
 
-/* פונקציות הפעולה של המשימות – קוראות לשרת דרך services ומעדכנות את ה-state עם dispatch */
-
-// טעינת כל המשימות של המשתמש
 export async function loadTodos(dispatch, userId) {
   dispatch({ type: "LOAD_START" });
   try {
@@ -13,7 +10,6 @@ export async function loadTodos(dispatch, userId) {
   }
 }
 
-// הוספת משימה
 export async function addTodo(dispatch, userId, title) {
   try {
     const newTodo = await createTodo(userId, title);
@@ -23,7 +19,6 @@ export async function addTodo(dispatch, userId, title) {
   }
 }
 
-// עדכון משימה: כותרת, מצב ביצוע או כל שדה אחר
 export async function updateTodo(dispatch, id, changes) {
   try {
     const updated = await patchTodo(id, changes);
@@ -33,7 +28,6 @@ export async function updateTodo(dispatch, id, changes) {
   }
 }
 
-// מחיקת משימה
 export async function deleteTodo(dispatch, id) {
   try {
     await removeTodo(id);

@@ -5,12 +5,6 @@ import { getUserPosts } from "../../services/postsApi";
 import { getAlbums } from "../../services/albumsApi";
 import "../../styles/Home.css";
 
-// ===== עמוד הבית של המשתמש =====
-// 1. תמונת נוף מונפשת (SVG) עם ברכה לפי שעה ביום
-// 2. שלושה כרטיסי קיצור – עם מספרים אמיתיים מהשרת
-// 3. השראה למסלול הבא (תוכן קבוע)
-
-// ברכה לפי השעה הנוכחית
 function getGreeting() {
   const hour = new Date().getHours();
   if (hour < 5) return "לילה טוב";
@@ -20,7 +14,6 @@ function getGreeting() {
   return "לילה טוב";
 }
 
-// מסלולים להשראה – תוכן קבוע, רק לתצוגה
 const TRAILS = [
   { name: "נחל עמוד", region: "גליל עליון", level: "בינוני", art: "galilee", text: "מעיינות, טחנות קמח ישנות ושביל לאורך הנחל" },
   { name: "שביל הנחש", region: "מצדה · ים המלח", level: "מאתגר", art: "desert", text: "עלייה עם הזריחה ונוף פתוח על ים המלח" },
@@ -31,13 +24,11 @@ export default function Home() {
   const { user } = useOutletContext();
   const firstName = user.name.split(" ")[0];
 
-  // הנתונים לכרטיסים – null עד שמגיעה תשובה מהשרת
   const [stats, setStats] = useState(null);
 
   useEffect(() => {
-    let ignore = false; // אם יצאנו מהעמוד לפני שהתשובה הגיעה – מתעלמים ממנה
+    let ignore = false;
 
-    // שלוש בקשות במקביל – מחכים לכולן יחד
     Promise.all([getTodos(user.id), getUserPosts(user.id), getAlbums(user.id)])
       .then(([todos, posts, albums]) => {
         if (ignore) return;
@@ -48,16 +39,13 @@ export default function Home() {
           albums: albums.length,
         });
       })
-      .catch(() => {
-        // אם השרת לא עונה – הכרטיסים פשוט יוצגו בלי מספרים
-      });
+      .catch(() => {});
 
     return () => {
       ignore = true;
     };
   }, [user.id]);
 
-  // הכרטיסים – to יחסי לכתובת של המשתמש (/users/Bret → /users/Bret/todos)
   const cards = [
     {
       to: "todos",
@@ -84,7 +72,6 @@ export default function Home() {
 
   return (
     <div className="page home">
-      {/* ===== 1. תמונת הנוף ===== */}
       <section className="home-hero">
         <svg
           className="home-hero__art"
@@ -106,20 +93,17 @@ export default function Home() {
 
           <rect width="1200" height="400" fill="url(#home-sky)" />
 
-          {/* השמש – זורחת מאחורי ההרים */}
           <g className="home-hero__sun">
             <circle cx="300" cy="190" r="140" fill="url(#home-sun-glow)" />
             <circle cx="300" cy="190" r="52" fill="#fff1cf" />
           </g>
 
-          {/* ציפורים */}
           <g className="home-hero__birds" fill="none" stroke="#7a5a3a" strokeWidth="2.5" strokeLinecap="round">
             <path d="M560 90 q10 -10 20 0 q10 -10 20 0" />
             <path d="M615 70 q7 -7 14 0 q7 -7 14 0" />
             <path d="M520 120 q6 -6 12 0 q6 -6 12 0" />
           </g>
 
-          {/* שכבות ההרים – מהרחוקה לקרובה, כל אחת "עולה" בתורה */}
           <path
             className="home-hero__layer home-hero__layer--far"
             fill="#d9a77c"
@@ -143,7 +127,6 @@ export default function Home() {
             d="M0 345 C180 302 320 334 470 312 C640 288 770 342 930 318 C1050 300 1130 322 1200 306 L1200 400 L0 400 Z"
           />
 
-          {/* השביל – קו מקווקו שנע, כאילו מישהו הולך בו */}
           <path
             className="home-hero__trail"
             fill="none"
@@ -167,14 +150,13 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ===== 2. כרטיסי קיצור ===== */}
       <section className="home-cards">
         {cards.map((card, index) => (
           <Link
             key={card.to}
             to={card.to}
             className="home-card card"
-            style={{ "--delay": `${0.5 + index * 0.12}s` }} // כל כרטיס נכנס קצת אחרי הקודם
+            style={{ "--delay": `${0.5 + index * 0.12}s` }}
           >
             <span className="home-card__icon" aria-hidden="true">{card.icon}</span>
             <span className="home-card__title">{card.title}</span>
@@ -185,7 +167,6 @@ export default function Home() {
         ))}
       </section>
 
-      {/* ===== 3. השראה למסלול הבא ===== */}
       <section className="home-trails">
         <h3 className="home-section-title">השראה למסלול הבא</h3>
         <ul className="home-trails__list">

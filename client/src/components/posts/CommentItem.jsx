@@ -1,7 +1,5 @@
 import { useState } from "react";
 
-// תגובה אחת: "שם: תוכן"
-// isMine – האם התגובה של המשתמש המחובר → מוצג "(אני)" + עדכון / מחיקה
 export default function CommentItem({ comment, isMine, onEdit, onDelete }) {
   const [isEditing, setIsEditing] = useState(false);
   const [newBody, setNewBody] = useState(comment.body);

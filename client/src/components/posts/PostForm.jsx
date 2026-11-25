@@ -1,7 +1,5 @@
 import { useState } from "react";
 
-// טופס מסלול – משמש גם להוספה וגם לעדכון
-// initialPost – בעדכון: המסלול הקיים; בהוספה: לא מעבירים (שדות ריקים)
 export default function PostForm({ initialPost, submitLabel, onSubmit, onCancel }) {
   const [title, setTitle] = useState(initialPost ? initialPost.title : "");
   const [body, setBody] = useState(initialPost ? initialPost.body : "");

@@ -1,12 +1,8 @@
-/* ===== עמוד הבית של המשתמש ===== */
-
 .home {
   display: flex;
   flex-direction: column;
   gap: 36px;
 }
-
-/* ---------- 1. תמונת הנוף ---------- */
 
 .home-hero {
   position: relative;
@@ -24,7 +20,6 @@
   display: block;
 }
 
-/* הטקסט – בצד ימין, על השמיים */
 .home-hero__text {
   position: absolute;
   top: 40px;
@@ -57,9 +52,6 @@
   box-shadow: 0 8px 20px -10px rgba(122, 75, 34, 0.8);
 }
 
-/* --- האנימציות של הנוף --- */
-
-/* כל שכבת הרים עולה מלמטה, אחת אחרי השנייה */
 .home-hero__layer {
   animation: home-rise 1s cubic-bezier(0.2, 0.7, 0.2, 1) both;
 }
@@ -67,23 +59,18 @@
 .home-hero__layer--mid  { animation-delay: 0.12s; }
 .home-hero__layer--near { animation-delay: 0.24s; }
 
-/* השמש זורחת */
 .home-hero__sun {
   animation: home-sunrise 1.6s ease-out both;
 }
 
-/* הציפורים מרחפות */
 .home-hero__birds {
   animation: home-fade-up 1s ease-out 0.6s both, home-float 6s ease-in-out 1.6s infinite;
 }
 
-/* השביל – הקווקוו זז כל הזמן, כמו צעדים */
 .home-hero__trail {
   stroke-dasharray: 14 14;
   animation: home-fade-in 0.6s ease-out 0.7s both, home-walk 8s linear infinite;
 }
-
-/* ---------- 2. כרטיסי קיצור ---------- */
 
 .home-cards {
   display: grid;
@@ -130,7 +117,6 @@
   font-size: 0.95rem;
 }
 
-/* חץ בפינה – זז שמאלה במעבר עכבר (RTL: שמאלה = קדימה) */
 .home-card__arrow {
   position: absolute;
   top: 24px;
@@ -142,8 +128,6 @@
 .home-card:hover .home-card__arrow {
   transform: translateX(-6px);
 }
-
-/* ---------- 3. השראה למסלול הבא ---------- */
 
 .home-section-title {
   font-size: 1.5rem;
@@ -181,7 +165,6 @@
   font-weight: 700;
 }
 
-/* איורי נוף בפסים – באותו סגנון של עמודי הכניסה */
 .home-trail__art--galilee {
   background: linear-gradient(
     to bottom,
@@ -233,8 +216,6 @@
   line-height: 1.5;
 }
 
-/* ---------- keyframes ---------- */
-
 @keyframes home-rise {
   from { transform: translateY(80px); opacity: 0; }
   to   { transform: translateY(0);    opacity: 1; }
@@ -264,7 +245,6 @@
   to { stroke-dashoffset: -280; }
 }
 
-/* מי שביקש במערכת פחות תנועה – בלי אנימציות */
 @media (prefers-reduced-motion: reduce) {
   .home *,
   .home *::before,
@@ -273,8 +253,6 @@
     transition: none !important;
   }
 }
-
-/* ---------- מסכים קטנים ---------- */
 
 @media (max-width: 900px) {
   .home-cards,

@@ -9,35 +9,34 @@ import PhotoItem from "./PhotoItem";
 import "../../styles/Photos.css";
 
 export default function Photos() {
-  // המשתמש המחובר מגיע מ-Layout, ומספר האלבום מהכתובת (albums/:albumId/photos)
   const { user } = useOutletContext();
   const { albumId } = useParams();
 
   const [state, dispatch] = useReducer(photosReducer, initialPhotosState);
-  const [album, setAlbum] = useState(null);       // פרטי האלבום – לכותרת
-  const [notFound, setNotFound] = useState(false); // אלבום לא קיים / של משתמש אחר
+  const [albumInfo, setAlbumInfo] = useState(null);
   const [newTitle, setNewTitle] = useState("");
   const [newUrl, setNewUrl] = useState("");
 
-  // טעינת פרטי האלבום + בדיקה שהוא שייך למשתמש המחובר
+  const currentInfo = albumInfo?.albumId === albumId ? albumInfo : null;
+  const album = currentInfo?.album ?? null;
+  const notFound = currentInfo?.notFound ?? false;
+
   useEffect(() => {
-    let ignore = false; // אם עברנו לאלבום אחר לפני שהתשובה הגיעה – מתעלמים ממנה
-    setNotFound(false);
+    let ignore = false;
     getAlbum(albumId)
       .then((data) => {
         if (ignore) return;
-        if (String(data.userId) !== String(user.id)) setNotFound(true);
-        else setAlbum(data);
+        if (String(data.userId) !== String(user.id)) setAlbumInfo({ albumId, notFound: true });
+        else setAlbumInfo({ albumId, album: data });
       })
       .catch(() => {
-        if (!ignore) setNotFound(true);
+        if (!ignore) setAlbumInfo({ albumId, notFound: true });
       });
     return () => {
       ignore = true;
     };
   }, [albumId, user.id]);
 
-  // טעינת 4 התמונות הראשונות
   useEffect(() => {
     loadPhotos(dispatch, albumId);
   }, [albumId]);
@@ -52,8 +51,6 @@ export default function Photos() {
     setNewUrl("");
   };
 
-  // "הצג עוד" – מתחילים אחרי התמונות שכבר הגיעו מהשרת
-  // (תמונות שהוספנו בעצמנו נמצאות בסוף הרשימה בשרת, ולכן לא נספרות)
   const handleLoadMore = () => {
     const start = state.photos.length - state.addedIds.length;
     loadMorePhotos(dispatch, albumId, start);

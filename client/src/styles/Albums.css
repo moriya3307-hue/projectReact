@@ -1,15 +1,6 @@
-/* ===== Albums page =====
-   Suggested structure:
-   <div className="albums-toolbar"> search | new album name | create album
-   <ul className="albums-grid">
-     <li className="album-card card">
-       <div className="album-card__cover"><img/></div>   (optional)
-       <div className="album-card__footer"><span className="album-card__title">1 · ...</span> open / delete
-*/
-
 .albums-toolbar {
   display: grid;
-  grid-template-columns: 1fr 1fr; /* search | new album */
+  grid-template-columns: 1fr 1fr;
   gap: 12px;
   margin-bottom: 18px;
 }

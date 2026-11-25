@@ -8,40 +8,31 @@ import PostForm from "./PostForm";
 import useSearch from "../../hooks/useSearch";
 import "../../styles/Posts.css";
 
-// אפשרויות ה"חיפוש לפי" (לפי הדרישות: id, כותרת)
 const SEARCH_OPTIONS = [
   { value: "title", label: "כותרת" },
   { value: "id", label: "מספר" },
 ];
 
 export default function Posts() {
-  // המשתמש המחובר מגיע מ-Layout דרך <Outlet context={{ user }} />
   const { user } = useOutletContext();
   const userId = user.id;
 
   const navigate = useNavigate();
 
-  // המסלול שנבחר והמצב (שלי / כולם) נשמרים בכתובת ולא ב-state,
-  // כך שהכתובת אינפורמטיבית והבחירה נשמרת גם אחרי ריענון:
-  //   /users/Bret/posts           → המסלולים שלי, בלי בחירה
-  //   /users/Bret/posts/7         → המסלולים שלי, מסלול 7 נבחר
-  //   /users/Bret/posts/7?all=true → כל המסלולים, מסלול 7 נבחר
-  const { postId } = useParams();                  // undefined אם לא נבחר מסלול
+  const { postId } = useParams();
   const [searchParams] = useSearchParams();
   const showAll = searchParams.get("all") === "true";
   const selectedId = postId ?? null;
 
   const [state, dispatch] = useReducer(postsReducer, initialPostsState);
-  const [isAdding, setIsAdding] = useState(false);     // האם מוצג טופס "מסלול חדש"
+  const [isAdding, setIsAdding] = useState(false);
 
-  // מעבר לכתובת של מסלול (או לרשימה בלי בחירה כש-id ריק), עם המצב שלי / כולם
   const basePath = `/users/${user.username}/posts`;
   const goToPost = (id, all = showAll) => {
     const path = id ? `${basePath}/${id}` : basePath;
     navigate(all ? `${path}?all=true` : path);
   };
 
-  // חיפוש – חייב להיות לפני ה-return המוקדם של "טוען..." (חוקי ה-Hooks)
   const { query, setQuery, searchBy, setSearchBy, filtered } = useSearch(
     state.posts,
     SEARCH_OPTIONS.map((opt) => opt.value)
@@ -52,10 +43,7 @@ export default function Posts() {
     setQuery("");
   };
 
-  // טעינה מחדש בכל פעם שעוברים בין "שלי" ל"כולם"
   useEffect(() => {
-    // מעבר מהיר בין "שלי" ל"כולם" שולח שתי בקשות במקביל.
-    // אם התשובה הישנה מגיעה אחרונה – מתעלמים ממנה, כדי שלא תדרוס את הרשימה הנכונה
     let ignore = false;
     const safeDispatch = (action) => {
       if (!ignore) dispatch(action);
@@ -66,19 +54,16 @@ export default function Posts() {
     };
   }, [userId, showAll]);
 
-  // מעבר בין "שלי" ל"כולם" – מבטל את הבחירה הקודמת
   const changeMode = (all) => {
     setIsAdding(false);
     goToPost(null, all);
   };
 
-  // בחירת מסלול סוגרת את טופס ההוספה (אם היה פתוח)
   const handleSelect = (id) => {
     setIsAdding(false);
     goToPost(id);
   };
 
-  // הוספה – אחרי שהשרת החזיר את המסלול החדש, בוחרים בו מיד
   const handleAdd = async (title, body) => {
     const newPost = await addPost(dispatch, userId, title, body);
     if (newPost) {
@@ -87,7 +72,6 @@ export default function Posts() {
     }
   };
 
-  // מחיקה – מחיקת מסלול מוחקת גם את התגובות שלו, לכן מבקשים אישור
   const handleDelete = (post) => {
     if (window.confirm(`למחוק את המסלול "${post.title}" וכל התגובות שלו?`)) {
       deletePost(dispatch, post.id);
@@ -95,12 +79,9 @@ export default function Posts() {
     }
   };
 
-  // המסלול שנבחר – מחושב מתוך הרשימה (לא שומרים עותק נפרד ב-state)
-  // מהכתובת ה-id מגיע תמיד כמחרוזת, ולכן משווים כמחרוזות
   const isSelected = (post) => selectedId !== null && String(post.id) === selectedId;
   const selectedPost = state.posts.find(isSelected);
 
-  // מה מוצג בצד הפרטים: טופס הוספה / פרטי המסלול שנבחר / הודעה
   let details;
   if (isAdding) {
     details = (
@@ -113,7 +94,7 @@ export default function Posts() {
   } else if (selectedPost) {
     details = (
       <PostDetails
-        key={selectedPost.id} // מסלול אחר = רכיב חדש (סוגר מצב עריכה של המסלול הקודם)
+        key={selectedPost.id}
         post={selectedPost}
         isMine={String(selectedPost.userId) === String(userId)}
         onEdit={(changes) => updatePost(dispatch, selectedPost.id, changes)}
@@ -121,7 +102,6 @@ export default function Posts() {
       />
     );
   } else if (selectedId !== null) {
-    // בכתובת יש מספר מסלול שלא קיים ברשימה (נמחק / של משתמש אחר במצב "שלי")
     details = <p className="muted">המסלול לא נמצא ברשימה הזו</p>;
   } else {
     details = <p className="muted">בחרו מסלול מהרשימה כדי לראות את הפרטים</p>;

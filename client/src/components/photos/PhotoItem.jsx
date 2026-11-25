@@ -1,6 +1,5 @@
 import { useState } from "react";
 
-// כרטיס של תמונה אחת – תצוגה, עדכון (כותרת + כתובת) ומחיקה
 export default function PhotoItem({ photo, onEdit, onDelete }) {
   const [isEditing, setIsEditing] = useState(false);
   const [newTitle, setNewTitle] = useState(photo.title);
@@ -17,7 +16,6 @@ export default function PhotoItem({ photo, onEdit, onDelete }) {
     const url = newUrl.trim();
     if (title === "" || url === "") return;
 
-    // שולחים לשרת רק את מה שהשתנה
     const changes = {};
     if (title !== photo.title) changes.title = title;
     if (url !== photo.url) {

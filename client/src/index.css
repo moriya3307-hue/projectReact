@@ -1,11 +1,9 @@
-/* ===== עיצוב כללי לכל היישום – צבעים, טיפוגרפיה, כפתורים ושדות ===== */
-
 :root {
-  --color-bg: #faf5ea;          /* רקע שמנת */
-  --color-surface: #ffffff;     /* כרטיסים */
-  --color-primary: #0e4f5c;     /* כחול-ירוק של הכותרת */
+  --color-bg: #faf5ea;
+  --color-surface: #ffffff;
+  --color-primary: #0e4f5c;
   --color-primary-soft: #eef5f6;
-  --color-accent: #e1a43a;      /* זהב של הכפתורים הראשיים */
+  --color-accent: #e1a43a;
   --color-accent-dark: #c98d26;
   --color-text: #17333b;
   --color-muted: #5f6b6d;
@@ -43,7 +41,6 @@ button, input, select, textarea {
   font-size: 1rem;
 }
 
-/* --- שדות קלט --- */
 .input,
 select.input {
   padding: 12px 14px;
@@ -59,7 +56,6 @@ select.input {
   outline-offset: 1px;
 }
 
-/* --- כפתורים --- */
 .btn {
   padding: 11px 22px;
   border: 1px solid transparent;
@@ -102,14 +98,12 @@ select.input {
   cursor: default;
 }
 
-/* --- כרטיס כללי --- */
 .card {
   background: var(--color-surface);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
 }
 
-/* --- עמוד תוכן תחת הכותרת --- */
 .page {
   max-width: 1340px;
   margin: 0 auto;

@@ -6,15 +6,12 @@ import {
 } from "../../actions/commentsActions";
 import CommentItem from "./CommentItem";
 
-// רשימת התגובות של מסלול אחד + טופס להוספת תגובה
 export default function Comments({ postId }) {
-  // המשתמש המחובר – useOutletContext עובד בכל רכיב שנמצא בתוך ה-Outlet, לא רק בעמוד עצמו
   const { user } = useOutletContext();
 
   const [state, dispatch] = useReducer(commentsReducer, initialCommentsState);
   const [newBody, setNewBody] = useState("");
 
-  // טעינת התגובות של המסלול
   useEffect(() => {
     loadComments(dispatch, postId);
   }, [postId]);
@@ -49,7 +46,6 @@ export default function Comments({ postId }) {
         </ul>
       )}
 
-      {/* הוספת תגובה – מותרת לכל מסלול, גם של משתמשים אחרים */}
       <form className="comment-form" onSubmit={handleAdd}>
         <input
           className="input"

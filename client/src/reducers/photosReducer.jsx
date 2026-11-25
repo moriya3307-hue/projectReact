@@ -1,14 +1,11 @@
-/* ה-reducer של התמונות – רק מחשב state חדש לפי action. הפעולות מול השרת נמצאות ב-actions/photosActions.jsx */
-
-// כמה תמונות נטענות בכל פעם ("נטענות 4 תמונות בכל לחיצה")
 export const PAGE_SIZE = 4;
 
 export const initialPhotosState = {
   photos: [],
-  loading: false,     // טעינה ראשונה – מציגים "טוען..." במקום העמוד
-  loadingMore: false, // טעינה של "הצג עוד" – העמוד נשאר, רק הכפתור מושבת
-  hasMore: true,      // האם יש עוד תמונות בשרת שעדיין לא נטענו
-  addedIds: [],       // תמונות שהוספנו בעצמנו – נשמרות בסוף הרשימה בשרת, ולא נספרות ב"הצג עוד"
+  loading: false,
+  loadingMore: false,
+  hasMore: true,
+  addedIds: [],
   error: null,
 };
 
@@ -20,7 +17,6 @@ export function photosReducer(state, action) {
     case "LOAD_MORE_START":
       return { ...state, loadingMore: true, error: null };
 
-    // טעינה ראשונה – מחליפים את הרשימה
     case "LOAD_SUCCESS":
       return {
         ...state,
@@ -29,9 +25,7 @@ export function photosReducer(state, action) {
         hasMore: action.payload.length === PAGE_SIZE,
       };
 
-    // "הצג עוד" – מוסיפים לסוף הרשימה (ולא מחליפים!)
     case "LOAD_MORE_SUCCESS": {
-      // סינון תמונות שכבר מוצגות – למשל תמונה שהוספנו בעצמנו ועכשיו חזרה גם מהשרת
       const existingIds = new Set(state.photos.map((p) => p.id));
       const newPhotos = action.payload.filter((p) => !existingIds.has(p.id));
       return {

@@ -1,4 +1,3 @@
-// שורה אחת ברשימת המסלולים – במצב סקירה מוצגים רק id + כותרת (לפי הדרישות)
 export default function PostItem({ post, isSelected, onSelect }) {
   return (
     <li className={`post-row card ${isSelected ? "selected" : ""}`}>

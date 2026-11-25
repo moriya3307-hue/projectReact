@@ -1,9 +1,6 @@
 import { getPhotos, createPhoto, patchPhoto, removePhoto } from "../services/photosApi";
 import { PAGE_SIZE } from "../reducers/photosReducer";
 
-/* פונקציות הפעולה של התמונות – קוראות לשרת דרך services ומעדכנות את ה-state עם dispatch */
-
-// טעינה ראשונה – 4 התמונות הראשונות של האלבום
 export async function loadPhotos(dispatch, albumId) {
   dispatch({ type: "LOAD_START" });
   try {
@@ -14,7 +11,6 @@ export async function loadPhotos(dispatch, albumId) {
   }
 }
 
-// "הצג עוד" – start = כמה תמונות כבר מוצגות
 export async function loadMorePhotos(dispatch, albumId, start) {
   dispatch({ type: "LOAD_MORE_START" });
   try {
@@ -25,7 +21,6 @@ export async function loadMorePhotos(dispatch, albumId, start) {
   }
 }
 
-// הוספת תמונה
 export async function addPhoto(dispatch, albumId, title, url) {
   try {
     const newPhoto = await createPhoto(albumId, title, url);
@@ -35,7 +30,6 @@ export async function addPhoto(dispatch, albumId, title, url) {
   }
 }
 
-// עדכון תמונה: כותרת / כתובת
 export async function updatePhoto(dispatch, id, changes) {
   try {
     const updated = await patchPhoto(id, changes);
@@ -45,7 +39,6 @@ export async function updatePhoto(dispatch, id, changes) {
   }
 }
 
-// מחיקת תמונה
 export async function deletePhoto(dispatch, id) {
   try {
     await removePhoto(id);

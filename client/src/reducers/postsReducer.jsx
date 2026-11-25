@@ -1,5 +1,3 @@
-/* ה-reducer של הפוסטים – רק מחשב state חדש לפי action. הפעולות מול השרת נמצאות ב-actions/postsActions.jsx */
-
 export const initialPostsState = {
   posts: [],
   loading: false,

@@ -1,11 +1,3 @@
-/* ===== Album photo gallery =====
-   Suggested structure:
-   <div className="photos-header"> <h1 className="page-title"/> <input className="input"/> <button>add photo</button>
-   <ul className="photos-grid">
-     <li className="photo-card card"><img/> <div className="photo-card__footer"><span/> update / delete
-   <div className="photos-more"><button>show more</button><span className="muted">4 photos per click</span>
-*/
-
 .photos-header {
   display: flex;
   align-items: center;
@@ -15,7 +7,7 @@
 }
 
 .photos-header .page-title {
-  margin: 0 0 0 auto; /* title on the right, fields pushed left */
+  margin: 0 0 0 auto;
 }
 
 .photos-header .input {

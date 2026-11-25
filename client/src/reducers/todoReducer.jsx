@@ -1,5 +1,3 @@
-/* ה-reducer של המשימות – רק מחשב state חדש לפי action. הפעולות מול השרת נמצאות ב-actions/todosActions.jsx */
-
 export const initialTodosState = {
   todos: [],
   loading: false,

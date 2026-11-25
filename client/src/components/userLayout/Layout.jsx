@@ -3,7 +3,6 @@ import { NavLink, Navigate, Outlet, useNavigate, useParams } from "react-router-
 import Info from "./Info";
 import "../../styles/Layout.css";
 
-// המפתח שתחתיו נשמר המשתמש המחובר ב-LocalStorage (ה-Login צריך לשמור באותו מפתח)
 export const USER_KEY = "currentUser";
 
 function getCurrentUser() {
@@ -20,10 +19,8 @@ export default function Layout() {
   const [showInfo, setShowInfo] = useState(false);
   const user = getCurrentUser();
 
-  // אין משתמש מחובר → לעמוד הכניסה
   if (!user) return <Navigate to="/login" replace />;
 
-  // ניסיון לגשת לכתובת של משתמש אחר → חזרה לכתובת של המשתמש המחובר
   if (username !== user.username) {
     return <Navigate to={`/users/${user.username}`} replace />;
   }
@@ -48,7 +45,6 @@ export default function Layout() {
       </header>
 
       <main>
-        {/* כל עמוד פנימי מקבל את המשתמש דרך useOutletContext() */}
         <Outlet context={{ user }} />
       </main>
 
