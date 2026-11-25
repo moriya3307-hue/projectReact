@@ -49,6 +49,12 @@
   font-weight: 700;
 }
 
+/* הסבר קטן מתחת לשדה (למשל הכללים לשם משתמש) */
+.auth-hint {
+  font-size: 13px;
+  font-weight: 400;
+}
+
 .auth-form .btn {
   width: 100%;
   padding: 14px;

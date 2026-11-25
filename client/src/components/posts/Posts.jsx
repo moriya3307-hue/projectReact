@@ -54,7 +54,16 @@ export default function Posts() {
 
   // טעינה מחדש בכל פעם שעוברים בין "שלי" ל"כולם"
   useEffect(() => {
-    loadPosts(dispatch, userId, showAll);
+    // מעבר מהיר בין "שלי" ל"כולם" שולח שתי בקשות במקביל.
+    // אם התשובה הישנה מגיעה אחרונה – מתעלמים ממנה, כדי שלא תדרוס את הרשימה הנכונה
+    let ignore = false;
+    const safeDispatch = (action) => {
+      if (!ignore) dispatch(action);
+    };
+    loadPosts(safeDispatch, userId, showAll);
+    return () => {
+      ignore = true;
+    };
   }, [userId, showAll]);
 
   // מעבר בין "שלי" ל"כולם" – מבטל את הבחירה הקודמת

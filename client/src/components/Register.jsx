@@ -8,6 +8,13 @@ import "../styles/Auth.css";
 // שלב 2: בדיקה מול השרת ששם המשתמש עוד לא תפוס.
 // שלב 3: מעבר למסך השלמת הפרטים, יחד עם שם המשתמש והסיסמה.
 
+// שם המשתמש הופך לחלק מהכתובת (/users/<username>), ולכן מותרים בו רק תווים "בטוחים":
+//   ^[A-Za-z]       – מתחיל באות באנגלית (כך אין שמות כמו "." או ".." שהדפדפן מפרש כ"תיקייה")
+//   [A-Za-z0-9._-]  – אחר כך רק אותיות באנגלית, ספרות, נקודה, קו תחתון ומקף
+//   {2,19}$         – סך הכול 3 עד 20 תווים
+// כך אי אפשר להכניס "/" (מפצל את הכתובת), "?" (מתחיל query) או "#" (מתחיל עוגן)
+const USERNAME_PATTERN = /^[A-Za-z][A-Za-z0-9._-]{2,19}$/;
+
 export default function Register() {
   const navigate = useNavigate();
 
@@ -26,14 +33,20 @@ export default function Register() {
       return;
     }
 
-    // 2. שתי הסיסמאות חייבות להיות זהות
+    // 2. שם המשתמש חייב להיות "בטוח לכתובת" (ראו USERNAME_PATTERN למעלה)
+    if (!USERNAME_PATTERN.test(username.trim())) {
+      setError("שם המשתמש: 3–20 תווים, מתחיל באות באנגלית, ורק אותיות באנגלית, ספרות, נקודה, _ או -");
+      return;
+    }
+
+    // 3. שתי הסיסמאות חייבות להיות זהות
     if (password !== verifyPassword) {
       setError("הסיסמאות אינן תואמות");
       return;
     }
 
     try {
-      // 3. שם המשתמש חייב להיות פנוי – בודקים בשרת
+      // 4. שם המשתמש חייב להיות פנוי – בודקים בשרת
       const users = await getUsersByUsername(username.trim());
 
       // כאן ההיגיון הפוך מה-Login: מערך לא ריק = מישהו כבר רשום בשם הזה
@@ -42,7 +55,7 @@ export default function Register() {
         return;
       }
 
-      // 4. הכול תקין! עוברים למסך השלמת הפרטים.
+      // 5. הכול תקין! עוברים למסך השלמת הפרטים.
       //    המשתמש עוד לא נשמר בשרת – לכן "שולחים" את הנתונים יחד עם המעבר, ב-state
       navigate("/register/details", {
         state: { username: username.trim(), password },
@@ -70,6 +83,7 @@ export default function Register() {
               onChange={(e) => setUsername(e.target.value)}
               autoFocus
             />
+            <small className="muted auth-hint">3–20 תווים: אותיות באנגלית, ספרות, נקודה, _ או -</small>
           </label>
 
           <label className="auth-field">
